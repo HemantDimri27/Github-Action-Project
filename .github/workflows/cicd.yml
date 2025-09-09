@@ -20,7 +20,7 @@ jobs:
     - name: Build with Maven
       run: mvn compile
         
-  security-cheks:
+  security-checks:
     runs-on: self-hosted
     needs: compile
 
@@ -39,11 +39,12 @@ jobs:
     - name: Gitleaks Installation
       run: sudo apt install gitleaks -y
     - name: Gitleaks Code Scan
-      run: gitleaks detect source . -r gitleaks-repord.json
+      run: gitleaks detect source. -r gitleaks-repord.json
       
   test:
     #label
     runs-on: self-hosted
+    needs: security-checks
 
     steps:
     - uses: actions/checkout@v4
